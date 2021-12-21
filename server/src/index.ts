@@ -16,9 +16,9 @@ io.on("connection", (socket: Socket) => {
   console.log("ソケットID：" + socket.id);
 
   socket.on("set_message", (message) => {
-    console.log("メッセージをセット！");
-    console.log(message);
-    socket.broadcast.emit("broadcast", "新着メッセージがあります");
+    socket.emit("emit", "メッセージを送信しました"); // 本人にemit
+    socket.broadcast.emit("broadcast", "新着メッセージがあります"); // 本人以外の全員にemit
+    io.emit("all", "全員"); // 全員にemit
   });
 
   socket.on("disconnect", () => {
